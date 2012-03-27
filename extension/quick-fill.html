@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>
+			Timesheet Assistant
+		</title>
+		<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="quick-fill.js"></script>
+		<link rel="stylesheet" href="jquery.mobile-1.0.1.min.css" type="text/css">
+		<script src="jquery.mobile-1.0.1.min.js" type="text/javascript"></script>
+	</head>
+	<body style="width:450px; height:600px">
+		<div id="page-form" data-role="page">
+			<div data-role="header">
+				<h1>
+					Timesheet Assistant
+				</h1>
+				<a href="#authentication-form" data-icon="gear" class="ui-btn-right">Options</a>
+			</div><!-- /header -->
+			<div data-role="content">
+				<label for="dueDate">Due Date</label>
+				<input id="dueDate" readonly="readonly">
+				<hr>
+		 		<fieldset id="dayOfWeek" data-role="controlgroup" data-type="horizontal">
+					<legend>Day Of Week:</legend>
+				    	<input type="radio" id="dayOfWeek-Mon" value="1" name="dayOfWeek-radio"/>
+					 	<label for="dayOfWeek-Mon">Mon</label>
+						<input type="radio" id="dayOfWeek-Tue" value="2" name="dayOfWeek-radio"/>
+					 	<label for="dayOfWeek-Tue">Tue</label>
+						<input type="radio" id="dayOfWeek-Wed" value="3" name="dayOfWeek-radio"/>
+					 	<label for="dayOfWeek-Wed">Wed</label>
+						<input type="radio" id="dayOfWeek-Thu" value="4" name="dayOfWeek-radio"/>
+					 	<label for="dayOfWeek-Thu">Thu</label>
+						<input type="radio" id="dayOfWeek-Fri" value="5" name="dayOfWeek-radio"/>
+					 	<label for="dayOfWeek-Fri">Fri</label>
+						<!--
+						<input type="radio" id="dayOfWeek-Sat" value="6"/>
+						<label for="dayOfWeek-Sat">Sat</label>
+						<input type="radio" id="dayOfWeek-Sun" value="7"/>
+						<label for="dayOfWeek-Sun">Sun</label>
+						-->
+				</fieldset>
+				<label for="code">Code:</label>
+				<div style="max-height: 36px;">
+					<input type="search" id="code" />
+					<div id="code-list-container" style="position: relative; top: -10px; z-index: 255;" >
+						<ul id="code-list" data-role="listview" data-inset="true">
+						</ul>
+					</div>
+				</div>
+				<label for="task">Task:</label><input id="task">
+				<button id="add">Add</button>
+				<hr>
+				<button id="refresh">Refresh</button>
+				<button id="submit">Submit</button>
+				<table style="width=100%">
+					<thead>
+						<tr>
+							<th>Day</th>
+							<th>Code</th>
+							<th>Task</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="items">
+					</tbody>
+				</table>
+			</div><!-- /content -->
+		</div><!-- /page -->
+		<div id="authentication-form" data-role="page" data-add-back-btn="true">
+			<div data-role="header">
+				<h1>
+					Authentication Info
+				</h1>
+			</div><!-- /header -->
+			<div date-role="content">
+				<label for="username">User Name:</label>
+				<input id="username">
+				<label for="password">Password:</label>
+				<input id="password" type="password">
+				<button id="saveAuthentication">Save</button>
+				<button id="clearAuthentication">Reset</button>
+			</div>
+		</div>	
+	</body>
+</html>

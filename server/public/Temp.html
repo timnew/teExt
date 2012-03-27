@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>Test</title>
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script>
+		    var source;
+			$(function() {
+			    source = new EventSource("http://localhost:3000/dispatching");
+				source.addEventListener('timesheet', function(e) {
+											$('#list').append('<li><b> timesheet </b>' + e + '</li>');
+										}, false);
+			});
+		</script>
+	</head>
+	<body>
+		<ul id="list">
+		</ul>
+	</body>
+</html>

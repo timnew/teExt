@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title></title>
+		<script src="jquery-1.7.1.min.js"></script>
+		<script>
+			$(function(){
+				$('#localSend').click(function() {
+					var data = JSON.parse($('#json').val());
+					chrome.extension.sendRequest({role: "data-gather", state: "new-data", data: data}, function(){
+						// do something
+					});
+				});
+				
+				function setUrl(url) {
+					var normalized;
+					
+					if(url == null)
+						normalized = '';
+					else if(url.slice(0, 7) == 'http://' || url.slice(0, 8) == 'https://')
+						normalized = url;
+					else
+						normalized =  'http://' + url + '/Send';
+						
+					$('#server').val(normalized);
+				}
+				
+				var server = localStorage["scheduleServer"];
+				if(server) {
+					setUrl(server.replace('/dispatching','/Send'));
+				}
+				
+				$('#server').blur(function(){
+					setUrl($('#server').val());
+				});
+				
+				$('#remoteSend').click(function() {
+					var url = $('#server').val();
+					var data = JSON.parse($('#json').val());
+					$.post(url,data,function(data, textStatus){ alert(textStatus); },'application/json');
+				});
+				$('#load').click(function() {
+					$('#json').val($('#debug_data').html());
+				});
+				$('#reset').click(function() {
+					$('#json').val('');
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="debug_data" style="display:none;">
+			{
+				"dueDate": "2012-01-02",
+				"hasExpense": false,
+				"items": [
+						{ 
+						"code": "pwc Assignee03 misc",
+						"billable": true,
+						"description": "#4392 developing the backend server",
+						"hours": [8,8,8,8,0,0,0]
+					},
+					{
+						"code": "tw TIME_OFF ANUAL_LVL",
+						"billable": false,
+						"description": "Anual Leave",
+						"hours": [0,0,0,0,8,0,0] 
+					},
+					{
+						"code": "new row 6",
+						"billable": false,
+						"description": "new row",
+						"hours": [8,0,0,0,0,0,0]
+					},
+					{
+						"code": "new row 5",
+						"billable": false,
+						"description": "new row",
+						"hours": [8,0,0,0,0,0,0]
+					},
+					{
+						"code": "new row 4",
+						"billable": false,
+						"description": "new row",
+						"hours": [8,0,0,0,0,0,0]
+					},
+					{
+						"code": "new row 3",
+						"billable": false,
+						"description": "new row",
+						"hours": [8,0,0,0,0,0,0]
+					},
+					{
+						"code": "new row 2",
+						"billable": false,
+						"description": "new row",
+						"hours": [8,0,0,0,0,0,0]
+					},
+					{
+						"code": "new row 1",
+						"billable": false,
+						"description": "new row",
+						"hours": [8,0,0,0,0,0,0]
+					}
+				]
+			}
+		</div>
+		<label for="server">Schedule Server</label>
+		<input id="server" style="width:100%;">
+		<textarea id="json" style="width:100%; height:500px;"></textarea>
+		<button id="localSend">Send Locally</button>
+		<button id="remoteSend">Send Remotely</button>
+		<button id="load">Load Data</button>
+		<button id="reset">Reset Data</button>
+	</body>
+</html>

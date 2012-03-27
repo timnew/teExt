@@ -1,0 +1,32 @@
+{
+  "name": "T&E Helper",
+  "version": "1.0",
+  "description": "The extension to fill the timesheet according to a JSON snippet",
+  "browser_action": {
+  "default_icon": "timesheet.png",
+  "popup": "quick-fill.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://te.thoughtworks.com/time_sheets/new"],
+      "js": ["jquery-1.7.1.min.js", "form-filler.js"]
+    },
+    {
+	  "matches": ["https://cas.thoughtworks.com/cas/login?service=http%3A%2F%2Fte.thoughtworks.com"],
+	  "js": ["jquery-1.7.1.min.js", "authentication-filler.js"]
+	},
+	{
+	  "matches": ["https://te.thoughtworks.com/?ticket=*"],
+	  "js":["log-in.js"]
+	},
+	{
+	  "matches":["https://cas.thoughtworks.com/cas/logout"],
+	  "js": ["log-out.js"]
+	}
+  ],
+  "background_page": "background.html",
+  "permissions": [ 
+	"http://*/",
+    "tabs"
+  ]
+}
