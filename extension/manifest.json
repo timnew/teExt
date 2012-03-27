@@ -3,8 +3,8 @@
   "version": "1.0",
   "description": "The extension to fill the timesheet according to a JSON snippet",
   "browser_action": {
-  "default_icon": "timesheet.png",
-  "popup": "quick-fill.html"
+  	"default_icon": "timesheet.png",
+  	"popup": "quick-fill.html"
   },
   "content_scripts": [
     {
