@@ -1,0 +1,30 @@
+{
+	"username": "dwen",
+	"displayName": "Wen Di",
+	"timesheets": [
+		{
+		    "authentication": {
+				"username": "dwen"
+				"password": "<password>"
+			},
+			"dueDate": "2012-01-02",
+			"hasExpense": false,
+			"Items": [
+				{ 
+					"code": "pwc Assignee03 misc",
+					"billable": true,
+					"description": "#4392 developing the backend server",
+					"hours": [1,2,3,4,5,6,7],
+					"comment": null
+				},
+				{
+					"code": "pwc Assignee03 misc",
+					"billable": true,
+					"description": "#4392 developing the backend server",
+					"hours": [1,2,3,4,5,6,7],
+					"comment": null
+				}
+			]
+		}
+	]
+}

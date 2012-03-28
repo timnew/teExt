@@ -76,29 +76,43 @@ var store = (function () {
 		this.save(dueDate, timesheet);
 	}
 	
-	function updateCode(code) {
-		if(code==null) {
+	function updateCode(code, callback) {
+		if(code==null && callback == null) {
 			this.knownCodes = JSON.parse(localStorage.getItem('knownCodes'));
 			if(this.knownCodes == null) {
-				this.knownCodes = ['pwc001 ASSIGN_3 misc', 'xxx', 'ooo', 'ddd'];
+				this.knownCodes = [
+					'PWC0001 ASSIG_3 MISC',
+					'TW_TOFF LEAVE PUBLIC_HOLIDAY',
+					'TW_TOFF LEAVE ANNUAL_LV',
+					'TW_TOFF SICK SICK_LV',
+					'TW_TOFF LEAVE TIME_IN_LIEU'];
 				localStorage.setItem('knownCodes', JSON.stringify(this.knownCodes));				
 			}
 		}
 		else {
+			code = code.trim();
 			var index = this.knownCodes.indexOf(code);
 		
 			if(index == 0)
 				return;
 				
 			if(index === -1) {
-				this.knownCodes.pop();
+				if(this.knownCodes.length > 10) {
+					console.log('Dispose old code:' + this.knownCodes.pop());
+				}
 				this.knownCodes.unshift(code)
+				console.log('Add new code: ' + code);
 			} 
 			else {
+				console.log('Reprioritize code ' + code);
 				[].splice.apply(this.knownCodes, [1, index].concat(this.knownCodes.slice(0, index || 9e9)));
 				this.knownCodes[0] = code;
 			}
 			localStorage.setItem('knownCodes', JSON.stringify(this.knownCodes));
+			if(callback != null) {
+				callback();
+			}
+			
 		}
 	}
 	
@@ -278,7 +292,7 @@ $( document ).delegate("#page-form", "pageinit", function() {
 					day: dayOfWeek.val(),
 					task: task.val()
 				 };
-			store.updateCode(code.val());
+			store.updateCode(code.val(), refreshCodeList);
 			store.set(dueDate.val(), record);
 			refresh();
 		});
@@ -354,4 +368,11 @@ $(document).delegate('#authentication-form', 'pageinit', function() {
 		authentication.reset();
 		refresh();
 	});
+	
+	function getVersion() {
+		var details = chrome.app.getDetails();
+	    return details.version;		
+	}
+	
+	$('#version').text('ver ' + getVersion());
 });

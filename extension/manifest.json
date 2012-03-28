@@ -1,7 +1,10 @@
 {
   "name": "T&E Helper",
-  "version": "1.0",
+  "version": "0.9.0",
   "description": "The extension to fill the timesheet according to a JSON snippet",
+  "icons": { "16": "timesheet16.png",
+           "48": "timesheet48.png",
+          "128": "timesheet128.png" },
   "browser_action": {
   	"default_icon": "timesheet.png",
   	"popup": "quick-fill.html"
@@ -28,5 +31,6 @@
   "permissions": [ 
 	"http://*/",
     "tabs"
-  ]
+  ],
+  "update_url": "https://raw.github.com/timnew/teExt/master/updates.xml"
 }
