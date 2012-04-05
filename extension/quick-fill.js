@@ -40,12 +40,13 @@ var Timesheet = (function() {
 		return result;
 	}
 	
-	Timesheet.prototype.submit = function() {
+	Timesheet.prototype.submit = function(submitAsFinal) {
 		var dueDate = new Date(this.dueDate);
 		var json = {
-			dueDate: dueDate.getFullYear() + '-' + dueDate.getMonth() + '-' + dueDate.getDate(),
+			dueDate: dueDate.getFullYear() + '-' + (dueDate.getMonth() + 1) + '-' + dueDate.getDate(),
 			hasExpense: false,
-			items: buildItems(this.records)
+			items: buildItems(this.records),
+			submitAsFinal: submitAsFinal,
 		};
 		var auth = authentication.get()
 		if(auth != null) {
@@ -329,7 +330,10 @@ $( document ).delegate("#page-form", "pageinit", function() {
 
 	(function initSubmit() {
 		$('#submit', page).click(function() {
-			store.current.submit();
+			store.current.submit(true);
+		});
+		$('#draft', page).click(function() {
+			store.current.submit(false);
 		});
 	})();
 	

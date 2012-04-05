@@ -80,7 +80,10 @@ var filler = (function(){
 	
 	function submitForm(submitAsFinal) {
 		var button = $('input[type=submit]:' + (submitAsFinal ? 'last' : 'first'));
-		alert(button.val());
+		
+		if (confirm ('Confirm the form data?')){
+			button.click();
+		}
 	}
 	
 	function _getRowDom(index) {
@@ -113,6 +116,20 @@ var filler = (function(){
 		}
 	}
 	
+	function _stringStartWith(str, prefix) {
+		return str.slice(0,prefix.length) === prefix;
+	}
+	
+	function _waitForSaveSucceed(callback) {
+		var notice = $('#flash_notice');
+		if(notice && _stringStartWith(notice.text(), 'Successfully created time sheet ending on')) {
+			callback();
+		}
+		else {
+			setTimeout(function(){ _waitForSaveSucceed(callback); }, 50);
+		}
+	}
+	
 	function fillRowsAsync(tasks, callback) { 
 		while(tasks.length) {
 			var task = tasks.pop();
@@ -139,11 +156,17 @@ var filler = (function(){
 		}
 		tasks = tasks.reverse();
 		
-		fillRowsAsync(tasks, function(){
+		fillRowsAsync(tasks, function() {
 			fillExpense(false);
-			submitForm(false);
-			callback();
-		})
+			submitForm(data.submitAsFinal);
+		
+			if(!data.submitAsFinal) {
+				_waitForSaveSucceed(callback);
+			}
+			else {
+				while(true) { } // Wait for page redirect automatically.
+			}
+		});
 	}
 	
 	return {
@@ -154,8 +177,8 @@ var filler = (function(){
 chrome.extension.sendRequest({role: "te-tab", state: "ready"}, function(formData) {
 	filler.fill(formData, function() {
 		console.log(formData);
-		chrome.extension.sendRequest({role: "te-tab", state: "done"},function(canClose) {
-			if(canClose) {
+		chrome.extension.sendRequest({role: "te-tab", state: "done"}, function(needLogout) {
+			if(needLogout) {
 				window.location = 'https://te.thoughtworks.com/logout';
 			}
 			else {
