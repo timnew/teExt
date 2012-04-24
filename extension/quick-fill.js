@@ -172,6 +172,42 @@ var authentication = (function() {
 	};
 })();
 
+var DueDate =  (function(){
+	function getNormalizedDate() {
+		var result = new Date();
+		result.setHours(0,0,0,0); // normalize time to 0:0:0.0;
+		return result;
+	}
+	
+	function getDueDate(date) {
+		var dueDate = getNormalizedDate();
+		dueDate.setDate(date.getDate() + ((7 - date.getDay()) % 7));
+		return dueDate;
+	}
+	
+	function thisWeek() {
+		this.current = getDueDate(getNormalizedDate());
+	}
+	
+	function previousWeek() {
+		this.current.setDate(this.current.getDate() - 7);
+	}
+	
+	function nextWeek() {
+		this.current.setDate(this.current.getDate() + 7);
+	}
+	
+	var result = {
+		thisWeek: thisWeek,
+		previousWeek: previousWeek,
+		nextWeek: nextWeek
+	};
+	
+	result.thisWeek();
+	
+	return result;
+})();
+
 $( document ).delegate("#page-form", "pageinit", function() {
 	var page = $('#page-form');
 	var dueDate = $('#dueDate', page);
@@ -182,14 +218,11 @@ $( document ).delegate("#page-form", "pageinit", function() {
 	var task = $('#task', page);
 	var add = $('#add', page);
 	var items = $('#items', page);
-	 
-	(function initDueDate() {
-		var today = new Date();
-		var sunday = new Date();
-		sunday.setDate(today.getDate() + ((7 - today.getDay()) % 7));
-		dueDate.val(sunday.toLocaleDateString())
-	})();
 	
+	var previousWeek = $('#previousWeek', page);
+	var thisWeek = $('#thisWeek', page);
+	var nextWeek = $('#nextWeek', page);
+
 	(function initDayOfWeek() {
 		$('input', dayOfWeek).click(function() {
 			dayOfWeek.val($(this).val());
@@ -294,7 +327,7 @@ $( document ).delegate("#page-form", "pageinit", function() {
 					task: task.val()
 				 };
 			store.updateCode(code.val(), refreshCodeList);
-			store.set(dueDate.val(), record);
+			store.set(DueDate.current, record);
 			refresh();
 		});
 	})();
@@ -313,14 +346,35 @@ $( document ).delegate("#page-form", "pageinit", function() {
 		for(var i=0; i<records.length; i++) {
 			var item = $('<tr>').appendTo(items);
 			var itemData = records[i];
-			$('<td>').text(itemData.day).appendTo(items);
-			$('<td>').text(itemData.code).appendTo(items);
-			$('<td>').text(itemData.task).appendTo(items);
-			$('<td><button>').appendTo(items).find('button').attr('data-icon','delete').attr('data-type','horizontal').attr('data-mini','true').attr('index',i).button();
+			$('<td>').text(itemData.day).appendTo(item);
+			$('<td>').text(itemData.code).appendTo(item);
+			$('<td>').text(itemData.task).appendTo(item);
+			$('<td><button>').appendTo(item).find('button').attr('data-icon','delete').attr('data-type','horizontal').attr('data-mini','true').attr('index',i).button();
 		}
 	}
 	
-	refresh();
+	(function initDueDate() {
+		thisWeek.click(function(){
+			DueDate.thisWeek();
+			updateDueDate();
+		});
+		nextWeek.click(function(){
+			DueDate.nextWeek();
+			updateDueDate();
+		});
+		previousWeek.click(function(){
+			DueDate.previousWeek();
+			updateDueDate();
+		});
+		
+		function updateDueDate() {
+			dueDate.val(DueDate.current.toLocaleDateString())
+			store.load(DueDate.current);
+			refresh();
+		}
+		
+		updateDueDate();
+	})();
 	
 	(function initRefresh() {
 		$('#refresh', page).click(function() {
@@ -336,9 +390,6 @@ $( document ).delegate("#page-form", "pageinit", function() {
 			store.current.submit(false);
 		});
 	})();
-	
-	store.load(dueDate.val());
-	refresh();
 });
 
 

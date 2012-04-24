@@ -19,7 +19,14 @@
 			</div><!-- /header -->
 			<div data-role="content">
 				<label for="dueDate">Due Date</label>
-				<input id="dueDate" readonly="readonly">
+				<div>
+					<input id="dueDate" readonly="readonly" style="width:180px; display:inline;">
+		 			<div data-role="controlgroup" data-type="horizontal" style="position:absolute; right: 10px; display:inline; margin: 0;">
+						<button id="previousWeek">&lt;</button>
+						<button id="thisWeek">Today</button>
+						<button id="nextWeek">&gt;</button>
+					</div>
+				</div>
 				<hr>
 		 		<fieldset id="dayOfWeek" data-role="controlgroup" data-type="horizontal">
 					<legend>Day Of Week:</legend>
