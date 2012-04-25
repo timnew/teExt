@@ -2,3 +2,16 @@
 .record-item th td { text-align: middle; }
 .record-item th { font-weight:bold; }
 .record-item td { font-weight:normal; }
+.right-align-box { position: absolute; right: 10px; }
+
+#dueDate { display:block; vertical-align: middle; }
+#dueDateNav { display:inline; margin: 0; position: absolute; top: 87px; right: 20px;  }
+/*#dueDateNav .ui-icon { vertical-align: middle; text-align: center; }*/
+/*#dueDateNav button,
+#dueDateNav .ui-btn,
+#dueDateNav .ui-btn-inner { width:36px; height:36px; }
+#dueDateNav .ui-icon { /*width: 30px; height: 30px; border-radius: 15px; zoom:1.6;}
+*/
+/*#dueDateNav .ui-icon-arrow-l { background-position: -138px }
+#dueDateNav .ui-icon-home  { background-position: -570px }
+#dueDateNav .ui-icon-arrow-r { background-position: -102px }*/

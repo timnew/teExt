@@ -214,7 +214,6 @@ function getVersion() {
     return details.version;		
 }
 
-
 $.views.converters({
 	toWeekDay: (function(){
 		var weekDays = ["Sun", "Mon","Tue","Wed","Thu","Fir","Sat"];
@@ -390,12 +389,6 @@ $( document ).delegate("#page-form", "pageinit", function() {
 		}
 		
 		updateDueDate();
-	})();
-	
-	(function initRefresh() {
-		$('#refresh', page).click(function() {
-			refresh();
-		});
 	})();
 
 	(function initSubmit() {

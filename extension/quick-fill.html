@@ -26,11 +26,11 @@
 			<div data-role="content">
 				<label for="dueDate">Due Date</label>
 				<div>
-					<input id="dueDate" readonly="readonly" style="width:180px; display:inline;">
-		 			<div data-role="controlgroup" data-type="horizontal" style="position:absolute; right: 10px; display:inline; margin: 0;">
-						<button id="previousWeek">&lt;</button>
-						<button id="thisWeek">Today</button>
-						<button id="nextWeek">&gt;</button>
+					<input id="dueDate" readonly="readonly">
+		 			<div id="dueDateNav" data-role="controlgroup" data-type="horizontal">
+						<button id="previousWeek" data-icon="arrow-l" data-iconpos="notext"></button>
+						<button id="thisWeek" data-icon="home" data-iconpos="notext"></button>
+						<button id="nextWeek" data-icon="arrow-r" data-iconpos="notext"></button>
 					</div>
 				</div>
 				<hr>
@@ -64,10 +64,11 @@
 				<label for="task">Task:</label><input id="task">
 				<button id="add">Add</button>
 				<hr>
-				<div data-role="controlgroup" data-type="horizontal">
-					<button id="refresh">Refresh</button>
-					<button id="draft">Draft</button>
-					<button id="submit">Submit</button>
+				<div style="height:50px;">
+					<div class="right-align-box">
+						<button id="draft" data-inline="true" data-mini="true" data-icon="plus" data-theme="e">Submit as Draft</button>
+						<button id="submit" data-inline="true" data-mini="true" data-icon="check" data-theme="b">Submit as Final</button>
+					</div>
 				</div>
 				<hr>
 				<ul data-role="listview" id="items" data-inset="true" data-split-icon="delete" data-split-theme="c">			
@@ -109,7 +110,7 @@
 				<label for="password">Password:</label>
 				<input id="password" type="password">
 	 
-				<div style="position: absolute; right: 10px;" >
+				<div class="right-align-box">
 					<button id="saveAuthentication" data-inline="true" data-icon="check" data-theme="b" >Save</button>
 					<button id="clearAuthentication" data-inline="true" data-icon="delete">Reset</button>
 				</div>
