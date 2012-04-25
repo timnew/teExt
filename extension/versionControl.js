@@ -28,7 +28,7 @@ function migrateDB_v0_9_3(){
 }
 
 function Upgrade(oldVersion, currentVersion) {
-	if(currentVersion === "0.9.3" && oldVersion === "0.9.2" ) {
+	if(oldVersion === "0.9.2" ) {
 		migrateDB_v0_9_3();
 	}
 }

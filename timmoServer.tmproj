@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>extension/background.html</string>
+	<string>key.pem</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,20 +21,6 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>extension/background.html</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>32</integer>
-				<key>line</key>
-				<integer>4</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>extension/background.js</key>
 		<dict>
 			<key>caret</key>
@@ -121,7 +107,7 @@
 				<integer>111</integer>
 			</dict>
 		</dict>
-		<key>extension/versionControl.js</key>
+		<key>key.pem</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -130,26 +116,10 @@
 				<key>line</key>
 				<integer>0</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>27</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
 		</dict>
 		<key>server/sample.json</key>
 		<dict>
@@ -196,8 +166,7 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>extension/background.html</string>
-		<string>extension/versionControl.js</string>
+		<string>key.pem</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

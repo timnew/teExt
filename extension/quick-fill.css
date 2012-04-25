@@ -1,0 +1,4 @@
+.record-item { width:100%; }
+.record-item th td { text-align: middle; }
+.record-item th { font-weight:bold; }
+.record-item td { font-weight:normal; }

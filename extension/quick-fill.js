@@ -64,7 +64,8 @@ var Timesheet = (function() {
 	
 	Timesheet.prototype.remove = function(index) {
 		this.records.splice(index,1);
-		store.save(this.dueDate, this);
+		var dueDate = new Date(this.dueDate)
+		store.save(dueDate, this);
 	}
 	
 	return Timesheet;
@@ -208,6 +209,26 @@ var DueDate =  (function(){
 	return result;
 })();
 
+function getVersion() {
+	var details = chrome.app.getDetails();
+    return details.version;		
+}
+
+
+$.views.converters({
+	toWeekDay: (function(){
+		var weekDays = ["Sun", "Mon","Tue","Wed","Thu","Fir","Sat"];
+		
+		function toWeekDay(day) {
+			return weekDays[day % 7];
+		}
+		
+		return toWeekDay;
+	})()
+});
+
+var pageForm = {};
+
 $( document ).delegate("#page-form", "pageinit", function() {
 	var page = $('#page-form');
 	var dueDate = $('#dueDate', page);
@@ -332,26 +353,21 @@ $( document ).delegate("#page-form", "pageinit", function() {
 		});
 	})();
 	
-	(function initItems(){
-		items.delegate('button','click',function() {
-			var index = $(this).attr('index');
-			store.current.remove(index);
-			refresh();
-		})
-	})();
-	
-	function refresh() {
+    function refresh() {
 		items.html('');
 		var records = store.current.records;
 		for(var i=0; i<records.length; i++) {
-			var item = $('<tr>').appendTo(items);
 			var itemData = records[i];
-			$('<td>').text(itemData.day).appendTo(item);
-			$('<td>').text(itemData.code).appendTo(item);
-			$('<td>').text(itemData.task).appendTo(item);
-			$('<td><button>').appendTo(item).find('button').attr('data-icon','delete').attr('data-type','horizontal').attr('data-mini','true').attr('index',i).button();
+			var viewModel = { index: i };
+			viewModel.__proto__ = itemData;
+
+			var itemHtml = $('#item-template').render(viewModel);
+			items.append(itemHtml);
 		}
+		items.listview('refresh');
 	}
+	
+	pageForm.refresh = refresh;
 	
 	(function initDueDate() {
 		thisWeek.click(function(){
@@ -390,6 +406,8 @@ $( document ).delegate("#page-form", "pageinit", function() {
 			store.current.submit(false);
 		});
 	})();
+	
+	$('#version').text('ver ' + getVersion());
 });
 
 
@@ -424,10 +442,7 @@ $(document).delegate('#authentication-form', 'pageinit', function() {
 		refresh();
 	});
 	
-	function getVersion() {
-		var details = chrome.app.getDetails();
-	    return details.version;		
-	}
+
 	
 	$('#version').text('ver ' + getVersion());
 });
