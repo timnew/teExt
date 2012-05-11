@@ -399,10 +399,11 @@ $( document ).delegate("#page-form", "pageinit", function() {
 			store.current.submit(false);
 		});
 	})();
-	
-	$('#version').text('ver ' + getVersion());
 });
 
+$(function() {
+	$('.version', document).text('ver ' + getVersion());
+})
 
 $(document).delegate('#authentication-form', 'pageinit', function() {
 	function refresh(){
@@ -434,8 +435,4 @@ $(document).delegate('#authentication-form', 'pageinit', function() {
 		authentication.reset();
 		refresh();
 	});
-	
-
-	
-	$('#version').text('ver ' + getVersion());
 });

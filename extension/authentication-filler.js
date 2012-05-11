@@ -6,6 +6,7 @@ var filler = (function(){
 	function verifyLogInType() {
 		var title = $('#app-name').text();
 		switch(title) {
+			case 'Central Authentication Service':
 			case 'SSO Internal/VPN access, please use Active Directory credentials.':
 				console.log('Log In Type: Internal/VPN Access');
 				return true;

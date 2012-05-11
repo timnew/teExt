@@ -1,6 +1,6 @@
 {
   "name": "T&E Helper",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "The extension to fill the timesheet according to a JSON snippet",
   "icons": { "16": "timesheet16.png",
            "48": "timesheet48.png",
